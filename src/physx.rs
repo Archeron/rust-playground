@@ -5,12 +5,14 @@ pub struct PhysxObject {
     pub pos: Vector2,
     pub vel: Vector2,
     acc: Vector2,
+    pub radius: f32,
+    pub dampening_factor: f32,
 }
 
 impl PhysxObject {
-    pub fn new(pos: Vector2, vel: Vector2, acc: Vector2) -> Self 
+    pub fn new(pos: Vector2, vel: Vector2, acc: Vector2, radius: f32, dampening_factor: f32) -> Self 
     { 
-        Self { pos, vel, acc } 
+        Self { pos, vel, acc, radius, dampening_factor } 
     }
 
     pub fn set_pos(&mut self, pos: Vector2) {
