@@ -16,7 +16,7 @@ fn main() {
     let mut ball: PhysxObject = PhysxObject::new(
         Vector2 { x: 50.0, y: 200.0 }, 
         Vector2 { x: 3.0, y: 0.0 }, 
-        Vector2 { x: 0.0, y: 1.0 }, 
+        Vector2 { x: 0.0, y: 3.0 }, 
         50.0,
         2.0 );
 
@@ -43,9 +43,31 @@ fn main() {
                 ball.vel.x *= -1.0;
             }
         }
-        if (d.is_mouse_button_down(MouseButton::MOUSE_LEFT_BUTTON)) {
+        balls.retain(|x| (x.vel.y.abs() > 0.1) || (x.pos.y < 429.0));
+
+        if (d.is_mouse_button_pressed(MouseButton::MOUSE_LEFT_BUTTON)) {
+                let mut mousex = d.get_mouse_x() as f32;
+                let mut mousey = d.get_mouse_y() as f32;
+
+                match mousex < 50.0 {
+                    true => mousex = 50.0,
+                    false => (),
+                }
+                match mousex > 590.0 {
+                    true => mousex = 590.0,
+                    false => (),
+                }
+                match mousey < 50.0 {
+                    true => mousey = 50.0,
+                    false => (),
+                }
+                match mousey > 430.0 {
+                    true => mousey = 430.0,
+                    false => (),
+                }
+
             let mut new_ball: PhysxObject = PhysxObject::new(
-                Vector2 { x: d.get_mouse_x() as f32, y: d.get_mouse_y() as f32 }, 
+                Vector2 { x: mousex, y: mousey }, 
                 Vector2 { x: 3.0, y: 0.0 }, 
                 Vector2 { x: 0.0, y: 1.0 }, 
                 50.0,
